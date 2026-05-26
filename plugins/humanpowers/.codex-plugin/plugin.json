@@ -1,0 +1,19 @@
+{
+  "name": "humanpowers",
+  "version": "0.1.0",
+  "description": "Design-first AI-assisted development framework",
+  "author": {
+    "name": "",
+    "url": ""
+  },
+  "license": "MIT",
+  "keywords": [],
+  "skills": "./skills/",
+  "hooks": "./hooks.json",
+  "interface": {
+    "displayName": "humanpowers",
+    "shortDescription": "Design-first AI-assisted development framework",
+    "category": "Development",
+    "capabilities": ["Read"]
+  }
+}

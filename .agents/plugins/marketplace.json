@@ -1,0 +1,19 @@
+{
+  "name": "humanpowers",
+  "interface": {
+    "displayName": "humanpowers"
+  },
+  "plugins": [
+    {
+      "name": "humanpowers",
+      "source": {
+        "source": "local",
+        "path": "./plugins/humanpowers"
+      },
+      "policy": {
+        "installation": "AVAILABLE"
+      },
+      "category": "Development"
+    }
+  ]
+}
