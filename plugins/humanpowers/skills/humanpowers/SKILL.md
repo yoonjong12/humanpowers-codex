@@ -1,6 +1,6 @@
 ---
 name: humanpowers
-description: Single entry point for humanpowers. Detects cwd context (in-repo or external), creates .humanpowers/ workspace skeleton when absent, then routes by phase. Developer types `/humanpowers` (optionally with a subcommand) and the dispatcher determines the next skill. Use whenever the developer wants to start or resume design-first work.
+description: Single entry point for humanpowers. Detects cwd context (in-repo or external), creates .humanpowers/ workspace skeleton when absent, then routes by phase. Developer types `$humanpowers` (optionally with a subcommand) and the dispatcher determines the next skill. Use whenever the developer wants to start or resume design-first work.
 ---
 
 # humanpowers Dispatcher
@@ -118,12 +118,12 @@ If a subcommand was passed, apply the override after the echo.
 
 | Command | Action |
 |---------|--------|
-| `/humanpowers continue` | resume current phase (default behavior) |
-| `/humanpowers jump <phase>` | force jump to phase; warn if skipping a gate |
-| `/humanpowers operate <task-id>` | invoke humanpowers:operate with a specific task |
-| `/humanpowers operate --batch` | invoke humanpowers:operate over all remaining unbuilt tasks |
-| `/humanpowers review` | invoke humanpowers:review for cross-task cascade |
-| `/humanpowers abort` | mark workspace aborted in state.json + stop |
+| `$humanpowers continue` | resume current phase (default behavior) |
+| `$humanpowers jump <phase>` | force jump to phase; warn if skipping a gate |
+| `$humanpowers operate <task-id>` | invoke humanpowers:operate with a specific task |
+| `$humanpowers operate --batch` | invoke humanpowers:operate over all remaining unbuilt tasks |
+| `$humanpowers review` | invoke humanpowers:review for cross-task cascade |
+| `$humanpowers abort` | mark workspace aborted in state.json + stop |
 
 `abort` sets `phase = "aborted"` via `scripts/update-state.sh "$WS" phase aborted`.
 

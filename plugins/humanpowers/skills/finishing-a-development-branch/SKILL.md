@@ -345,7 +345,7 @@ Options: Yes — run now, Later — I'll invoke manually
 ```
 
 On "Yes" -> invoke `humanpowers:retrospective` immediately.
-On "Later" -> done. Developer invokes `/humanpowers retrospective` when ready.
+On "Later" -> done. Developer invokes `$humanpowers retrospective` when ready.
 
 ## Integration
 

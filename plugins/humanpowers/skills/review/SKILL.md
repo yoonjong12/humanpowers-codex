@@ -8,7 +8,7 @@ description: Use after multiple tasks are verified to perform a project-level re
 ## When to invoke
 
 - After at least 2 tasks reach `status: verified`
-- Or developer explicitly requests `/humanpowers review`
+- Or developer explicitly requests `$humanpowers review`
 - Before finishing-a-development-branch (final wrap)
 
 ## Steps
@@ -76,7 +76,7 @@ Next task candidates (frontier): task-X / task-Y / task-Z. Which one first?
 Options: [task-X, task-Y, task-Z, parallel-all, custom]
 ```
 
-Hand off: `/humanpowers operate {chosen-task}`.
+Hand off: `$humanpowers operate {chosen-task}`.
 
 ### Step 4b: Option 2 — Cascade re-quiz
 

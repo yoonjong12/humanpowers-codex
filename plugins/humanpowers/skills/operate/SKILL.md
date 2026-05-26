@@ -1,6 +1,6 @@
 ---
 name: operate
-description: Use to invoke a task lead role and execute work for a specific task. Routes from /humanpowers operate {id}. Loads task context (spec + round1.md + plan), assumes the task lead role, executes pending work, updates status. Generic — no domain identity. Same agent can lead different tasks.
+description: Use to invoke a task lead role and execute work for a specific task. Routes from $humanpowers operate {id}. Loads task context (spec + round1.md + plan), assumes the task lead role, executes pending work, updates status. Generic — no domain identity. Same agent can lead different tasks.
 ---
 
 # Operate Skill
@@ -102,14 +102,14 @@ Fix issues before marking status. Then: set tasks.md status = `built`. Hand off 
 | Condition | Action |
 |-----------|--------|
 | All plan steps done for this task | 1. Set task status -> `built` in tasks.md. 2. Report: "Task {id} built. Invoking verification." 3. Invoke `humanpowers:verification-before-completion` immediately. |
-| Some steps done, session ending | 1. Report progress. 2. Invoke `humanpowers:operate {id}` to resume — or tell developer `/humanpowers operate {id}` for next session. |
+| Some steps done, session ending | 1. Report progress. 2. Invoke `humanpowers:operate {id}` to resume — or tell developer `$humanpowers operate {id}` for next session. |
 | Blocked | Halt. Report the blocker (which task / what's missing). Do NOT proceed to verification. |
 
 **Do NOT** summarize and wait. **Do NOT** stop without invoking the next skill. The handoff protocol requires immediate invocation of the next skill.
 
 ## Batch mode
 
-By default, `humanpowers:operate` works on a single task. Pass `--batch` (or invoke via `/humanpowers operate --batch`) to iterate over all remaining tasks whose plan exists and whose code is not yet built.
+By default, `humanpowers:operate` works on a single task. Pass `--batch` (or invoke via `$humanpowers operate --batch`) to iterate over all remaining tasks whose plan exists and whose code is not yet built.
 
 Behavior in batch mode:
 
@@ -123,7 +123,7 @@ Behavior in batch mode:
 
 Batch mode does not skip the per-task verification gate. After all tasks are built, follow the handoff protocol: update phase -> `built`, then invoke `humanpowers:verification-before-completion` for the first unverified task immediately.
 
-Use single-task mode (`/humanpowers operate <id>`) when:
+Use single-task mode (`$humanpowers operate <id>`) when:
 
 - The next task is uncertain and you want to inspect the plan first.
 - A specific task needs targeted attention (failing test, scope question).

@@ -19,7 +19,7 @@ The decision artifact is created at the `finish` phase as `docs/decisions/<slug>
 
 ## Single entry
 
-`/humanpowers`. The dispatcher detects whether a workspace exists at or above cwd and routes accordingly.
+`$humanpowers`. The dispatcher detects whether a workspace exists at or above cwd and routes accordingly.
 
 - No workspace -> create `.humanpowers/` skeleton, hand off to brainstorming.
 - Workspace exists -> read phase, route to next skill.
@@ -44,12 +44,12 @@ brainstorm -> quiz -> plan -> operate -> verify -> review -> finish
 
 | Command | Action |
 |---------|--------|
-| `/humanpowers continue` | resume current phase |
-| `/humanpowers jump <phase>` | jump to phase, warn if skipping a gate |
-| `/humanpowers operate <task-id>` | work on one task |
-| `/humanpowers operate --batch` | work on all remaining unbuilt tasks |
-| `/humanpowers review` | cross-task review |
-| `/humanpowers abort` | mark workspace aborted |
+| `$humanpowers continue` | resume current phase |
+| `$humanpowers jump <phase>` | jump to phase, warn if skipping a gate |
+| `$humanpowers operate <task-id>` | work on one task |
+| `$humanpowers operate --batch` | work on all remaining unbuilt tasks |
+| `$humanpowers review` | cross-task review |
+| `$humanpowers abort` | mark workspace aborted |
 
 ## When NOT to use humanpowers
 
