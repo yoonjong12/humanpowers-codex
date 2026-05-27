@@ -23,14 +23,11 @@ verification     -> developer demo signoff against round1.md
 
 ## Inputs
 
-Resolve workspace from cwd via upward search:
+Resolve workspace from cwd:
 
 ```bash
-DIR="$(pwd)"; WS=""
-while [ "$DIR" != "/" ]; do
-  [ -f "$DIR/.humanpowers/state.json" ] && WS="$DIR" && break
-  DIR="$(dirname "$DIR")"
-done
+eval "$(bash "$PLUGIN_ROOT/scripts/find-workspace.sh")"
+# Sets: WS, PHASE, TARGET, TASKS_TOTAL, TASKS_QUIZ_DONE
 ```
 
 Required upstream artifacts:
@@ -91,7 +88,12 @@ If a dimension is active but no item supports a decision point, do NOT invent. H
 
 ### Step 3: Q body authoring
 
-For each cell, expand into a Q body in `tasks/{id}/round1.md` using the structure in `references/templates/quiz-template.md`. Each Q body specifies:
+Create the round1.md skeleton first:
+```bash
+bash "$PLUGIN_ROOT/scripts/quiz-skeleton.sh" "$WS" {id}
+```
+
+Then expand each active cell into a Q body using the structure in `references/templates/quiz-template.md`. Each Q body specifies:
 
 - **Cited item** — the ID being referenced
 - **Why this decision matters** — 1-2 sentences on the tradeoff (not a restatement of the cited item)
@@ -197,9 +199,11 @@ Options: Lock / Re-review one cell / Abort
 ```
 
 On `Lock`:
-- Mark `tasks.md#task-{id}` `STATUS: quiz-done`.
+```bash
+bash "$PLUGIN_ROOT/scripts/update-task-status.sh" "$WS" {id} quiz-done
+bash "$PLUGIN_ROOT/scripts/update-state.sh" "$WS" tasks_quiz_done $((TASKS_QUIZ_DONE + 1))
+```
 - Auto-derive a `Test spec` block per Q (developer answer -> executable test or demo step).
-- Increment `tasks_quiz_done` in state.json.
 
 ## round 2 (optional, developer-led)
 

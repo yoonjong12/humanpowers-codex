@@ -15,16 +15,10 @@ description: Use to invoke a task lead role and execute work for a specific task
 ### Step 1: Validate task exists
 
 ```bash
-# Resolve workspace from cwd (upward search)
-DIR="$(pwd)"; WS=""
-while [ "$DIR" != "/" ]; do
-  [ -f "$DIR/.humanpowers/state.json" ] && WS="$DIR" && break
-  DIR="$(dirname "$DIR")"
-done
-[ -z "$WS" ] && { echo "no humanpowers workspace"; exit 1; }
-TARGET=$(jq -r .target_repo "$WS/.humanpowers/state.json")
+eval "$(bash "$PLUGIN_ROOT/scripts/find-workspace.sh")"
+# Sets: WS, PHASE, TARGET
 
-grep -q "id: $ID" "$WS/tasks.md" || { echo "Task $ID not found"; exit 1; }
+grep -q "id: $ID" "$WS/.humanpowers/tasks.md" || { echo "Task $ID not found"; exit 1; }
 ```
 
 ### Step 2: Load task context

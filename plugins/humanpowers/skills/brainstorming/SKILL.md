@@ -36,9 +36,8 @@ When invoked by `humanpowers:humanpowers` (the dispatcher), the workspace `.huma
 **Phase transition:** After the developer signs off on `problem.md`, run:
 
 ```bash
-WS="$(dirname "$(find . -maxdepth 3 -name state.json -path '*/.humanpowers/*' | head -1)")"
-WS="$(dirname "$WS")"
-bash scripts/update-state.sh "$WS" phase problem-defined
+eval "$(bash "$PLUGIN_ROOT/scripts/find-workspace.sh")"
+bash "$PLUGIN_ROOT/scripts/update-state.sh" "$WS" phase problem-defined
 ```
 
 Then hand off to `humanpowers:writing-plans`. The flow is brainstorm -> writing-plans -> quiz -> operate. Writing-plans expands the preliminary task outline in `problem.md` into `tasks.md` with full per-task item IDs; the quiz then cites those IDs without inventing new ones.
@@ -174,9 +173,8 @@ Save to `<workspace>/.humanpowers/problem.md` (use template at `references/templ
 Set `.humanpowers/state.json` phase = `problem-defined` via:
 
 ```bash
-WS="$(dirname "$(find . -maxdepth 3 -name state.json -path '*/.humanpowers/*' | head -1)")"
-WS="$(dirname "$WS")"
-bash scripts/update-state.sh "$WS" phase problem-defined
+eval "$(bash "$PLUGIN_ROOT/scripts/find-workspace.sh")"
+bash "$PLUGIN_ROOT/scripts/update-state.sh" "$WS" phase problem-defined
 ```
 
 Next phase = `designed` (after `humanpowers:writing-plans` runs).

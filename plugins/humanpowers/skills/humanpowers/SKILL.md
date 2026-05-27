@@ -17,54 +17,18 @@ The dispatcher does not author content. The skill chain is brainstorm -> writing
 ## Step 1: Locate workspace
 
 ```bash
-WS=""
-DIR="$(pwd)"
-while [ "$DIR" != "/" ]; do
-  if [ -f "$DIR/.humanpowers/state.json" ]; then
-    WS="$DIR"
-    break
-  fi
-  DIR="$(dirname "$DIR")"
-done
+eval "$(bash "$PLUGIN_ROOT/scripts/find-workspace.sh" 2>/dev/null)"
 ```
 
 If `WS` is non-empty -> existing workspace, jump to Step 3.
 
-If `WS` is empty -> no workspace, go to Step 2.
+If `WS` is empty (script exits 1) -> no workspace, go to Step 2.
 
 ## Step 2: Create workspace skeleton
 
 ```bash
-if git rev-parse --show-toplevel >/dev/null 2>&1; then
-  REPO_ROOT="$(git rev-parse --show-toplevel)"
-  WS_DIR="$REPO_ROOT/.humanpowers"
-  KIND="in-repo"
-  TARGET="$REPO_ROOT"
-else
-  WS_DIR="$(pwd)/.humanpowers"
-  KIND="external"
-  TARGET="null"
-fi
-
-mkdir -p "$WS_DIR/tasks"
-
-if [ "$TARGET" = "null" ]; then
-  TARGET_JSON="null"
-else
-  TARGET_JSON="\"$TARGET\""
-fi
-
-cat > "$WS_DIR/state.json" <<EOF
-{
-  "phase": "",
-  "target_repo": $TARGET_JSON,
-  "workspace_kind": "$KIND",
-  "tasks_total": 0,
-  "tasks_quiz_done": 0,
-  "tasks_built": 0,
-  "tasks_verified": 0
-}
-EOF
+eval "$(bash "$PLUGIN_ROOT/scripts/init-workspace.sh")"
+# Sets: WS_DIR, KIND, TARGET
 ```
 
 Output to user:

@@ -209,10 +209,9 @@ Fix issues inline. No need to re-review — just fix and move on.
 After tasks.md and all plan.md files are written and self-reviewed, set the phase:
 
 ```bash
-WS="$(dirname "$(find . -maxdepth 3 -name state.json -path '*/.humanpowers/*' | head -1)")"
-WS="$(dirname "$WS")"
-bash scripts/update-state.sh "$WS" phase designed
-bash scripts/update-state.sh "$WS" tasks_total <count>
+eval "$(bash "$PLUGIN_ROOT/scripts/find-workspace.sh")"
+bash "$PLUGIN_ROOT/scripts/update-state.sh" "$WS" phase designed
+bash "$PLUGIN_ROOT/scripts/update-state.sh" "$WS" tasks_total <count>
 ```
 
 ## Handoff to quiz (follow handoff protocol)

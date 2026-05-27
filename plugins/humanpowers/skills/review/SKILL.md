@@ -15,22 +15,13 @@ description: Use after multiple tasks are verified to perform a project-level re
 
 ### Step 1: Aggregate state
 
-Resolve workspace via upward search from cwd:
-
 ```bash
-DIR="$(pwd)"; WS=""
-while [ "$DIR" != "/" ]; do
-  [ -f "$DIR/.humanpowers/state.json" ] && WS="$DIR" && break
-  DIR="$(dirname "$DIR")"
-done
-[ -z "$WS" ] && { echo "no humanpowers workspace"; exit 1; }
+eval "$(bash "$PLUGIN_ROOT/scripts/find-workspace.sh")"
+bash "$PLUGIN_ROOT/scripts/workspace-summary.sh" "$WS"
+# Sets: WS, PHASE, TARGET, TASKS_TOTAL, TASKS_BUILT, TASKS_VERIFIED, TASKS_QUIZ_DONE
 ```
 
-Read:
-- `<WS>/.humanpowers/state.json` — phase + task counts
-- `~/.humanpowers/learnings/review.md` — if exists, medium-trust context for cascade decisions
-- `<WS>/.humanpowers/problem.md` — project invariants
-- `<WS>/.humanpowers/tasks.md` — per-task status
+Also read if exists: `~/.humanpowers/learnings/review.md` (medium-trust context for cascade decisions).
 
 ### Step 2: Show the developer the review summary
 
